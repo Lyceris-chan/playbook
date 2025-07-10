@@ -66,16 +66,17 @@ actions:
     ignoreErrors: true
 
   - !powerShell:
-    command: '.\WALLPAPER.ps1 -Mode Desktop -ImagePath $env:systemroot\Web\Wallpaper\MeetRevision\v2\desktop.jpg'
+    command: '.\WALLPAPER.ps1 -WallpaperPath "$env:SystemRoot\Web\Wallpaper\MeetRevision\v2\desktop.jpg" -ThemeExportPath "$env:SystemRoot\Resources\Themes\revi.theme" -SystemMode "Dark" -AppMode "Dark"'
     exeDir: true
     runas: currentUserElevated
     option: "configure-wallpaper"
     weight: 45
 
-  - !powerShell: 
-    command: '.\WALLPAPER.ps1 -Mode LockScreen -ImagePath $env:systemroot\Web\Wallpaper\MeetRevision\v2\lockscreen.jpg'
-    exeDir: true
-    runas: currentUserElevated
+  - !registryValue: 
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Personalization'
+    value: 'LockScreenImage'
+    type: REG_SZ
+    data: 'C:\Windows\Web\Wallpaper\MeetRevision\v2\lockscreen.jpg'
     option: "configure-wallpaper"
     weight: 45  
 
